@@ -2,6 +2,7 @@ package;
 
 import flixel.FlxGame;
 import openfl.display.Sprite;
+import scenes.MainMenu;
 
 class Main extends Sprite
 {
@@ -9,6 +10,6 @@ class Main extends Sprite
 	{
 		super();
 
-		addChild(new FlxGame(0, 0, PlayState));
+		addChild(new FlxGame(0, 0, MainMenu));
 	}
 }
