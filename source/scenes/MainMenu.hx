@@ -18,7 +18,6 @@ class MainMenu extends FlxState
 		super.create();
 
 		background = new MainMenuBackground();
-		background.screenCenter();
 		add(background);
 
 		newGameButton = new FlxButton(0, 0, "New Game", newGame);
@@ -29,10 +28,10 @@ class MainMenu extends FlxState
 		add(newGameButton);
 
 		titleText = new FlxText(0, 0, 0, "Wise Mystical Tree: THE GAME", 32);
-		titleText.setFormat("assets/fonts/runescape_uf.ttf", 48, FlxColor.WHITE);
+		titleText.setFormat("assets/fonts/runescape_uf.ttf", 46, FlxColor.WHITE);
 		titleText.setBorderStyle(SHADOW, FlxColor.GREEN, 1, 1);
 		titleText.screenCenter();
-		titleText.y -= 60;
+		titleText.y -= 80;
 		add(titleText);
 	}
 
