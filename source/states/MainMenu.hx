@@ -1,17 +1,21 @@
-package scenes;
+package states;
 
 import flixel.FlxG;
 import flixel.FlxState;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.util.FlxColor;
-import ui_objects.MainMenuBackground;
+import specific_ui.MainMenuBackground;
+import ui_elements.Popup;
 
 class MainMenu extends FlxState
 {
 	var background:MainMenuBackground;
 	var newGameButton:FlxButton;
 	var titleText:FlxText;
+
+	var confirmationPopup:Popup;
+	var acceptedPopup:Popup;
 
 	override public function create()
 	{
@@ -38,10 +42,36 @@ class MainMenu extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		if (confirmationPopup != null) // Makes sure the popup actually exists (so the game doesn't break)
+		{
+			if (confirmationPopup.button1Pressed) // If 'Yes' is pressed
+			{
+				remove(confirmationPopup);
+				confirmationPopup = null;
+				acceptedPopup = new Popup("Yay!", "Then this is the game for you!");
+				acceptedPopup.setButtonsTo1("Wohoo!");
+				add(acceptedPopup);
+			}
+			else if (confirmationPopup.button2Pressed) // If 'No' is pressed
+			{
+				FlxG.switchState(new Oops());
+			}
+		}
+
+		if (acceptedPopup != null)
+		{
+			if (acceptedPopup.button1Pressed)
+			{
+				FlxG.switchState(new PlayState()); // Goes into the game woooooooooooooo
+			}
+		}
 	}
 
 	function newGame()
 	{
-		FlxG.switchState(new PlayState());
+		confirmationPopup = new Popup("Hey!", "Are you over 25 and have a computer?");
+		confirmationPopup.setButtonsTo2("Yes", "No");
+		add(confirmationPopup);
 	}
 }
